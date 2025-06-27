@@ -3,29 +3,33 @@
 ## Technologies Used
 - **Node.js**: Runtime environment.
 - **TypeScript**: Main language, strict mode enabled.
-- **@modelcontextprotocol/sdk**: MCP server SDK for tool and transport management.
-- **axios**: HTTP client for Ollama API requests.
+- **@modelcontextprotocol/sdk**: MCP server SDK for tool and transport management (v1.13.0+).
+- **ollama-js**: Library for interacting with the Ollama API.
+- **Zod**: Runtime and static validation of tool arguments.
 
 ## Development Setup
-- **Build**: `pnpm install` to install dependencies, `pnpm run build` to compile TypeScript to `build/`.
-- **Watch**: `pnpm run watch` for live TypeScript compilation.
+- **Install**: `npm install` to install dependencies.
+- **Build**: `npm run build` to compile TypeScript to `build/`.
+- **Watch**: `npm run watch` for live TypeScript compilation.
 - **CLI**: Entry point is `build/index.js`, exposed as `ollama-mcp`.
 - **Inspector**: `npx @modelcontextprotocol/inspector build/index.js` for MCP tool inspection.
 
 ## Technical Constraints
-- Requires Ollama installed and accessible via CLI and/or API.
-- MCP server must be started via Node.js (stdio or HTTP/SSE).
+- Requires Ollama installed and accessible via API.
+- MCP server must be started via Node.js (stdio transport currently; HTTP/SSE planned).
 - Ollama API endpoint configurable via `OLLAMA_HOST` environment variable.
 
 ## Dependencies
 - **Production**:
-  - `@modelcontextprotocol/sdk` (v0.6.0)
-  - `axios` (v1.7.9)
+  - `@modelcontextprotocol/sdk` (v1.13.0)
+  - `ollama` (v0.5.16)
+  - `zod`
 - **Development**:
-  - `typescript` (v5.3.3)
-  - `@types/node` (v20.11.24)
+  - `typescript`
+  - `@types/node`
 
 ## Tool Usage Patterns
-- MCP tools mapped to Ollama CLI/API operations.
-- Error handling and streaming supported natively.
-- Supports both synchronous and streaming (SSE) responses.
+- MCP tools are registered using `registerTool` with Zod-validated schemas.
+- Each tool handler calls the Ollama API via `ollama-js`.
+- Errors are caught and formatted for MCP compatibility.
+- Streaming output is buffered and returned as a single text response.

@@ -1,24 +1,28 @@
 # System Patterns
 
 ## Architecture Overview
-- **Class-based server**: Main logic encapsulated in `OllamaServer` class.
-- **MCP Server**: Uses `@modelcontextprotocol/sdk` to expose Ollama as an MCP server.
-- **Transport Support**: Supports both stdio and SSE (HTTP) transports for flexibility.
-- **Tool-based API**: Each Ollama operation is exposed as a distinct MCP tool.
+
+- **Functional MCP Server**: The main logic is implemented in a functional style using `McpServer` from `@modelcontextprotocol/sdk`.
+- **Tool Registration**: Each Ollama operation (list, show, create, pull, push, cp, rm, run, chat_completion) is registered as an MCP tool using `registerTool`.
+- **Input Validation**: Uses Zod schemas for runtime and static validation of tool arguments.
+- **Transport Support**: Currently supports stdio transport for CLI/stdio integration. HTTP/SSE transport is planned for future releases.
+- **Ollama Integration**: Uses `ollama-js` for all interactions with the Ollama API.
 
 ## Key Technical Decisions
-- **Tool Handler Pattern**: Each tool (serve, create, show, run, pull, push, list, cp, rm, chat_completion) is mapped to a handler method.
-- **Error Handling**: Centralized error formatting and MCP error propagation.
-- **Streaming Support**: Uses SSE and transform streams for model output streaming.
-- **Configurable Endpoint**: Ollama API endpoint is configurable via environment variable.
+
+- **registerTool Pattern**: All MCP tools are registered with explicit input schemas and async handler functions.
+- **Type Safety**: Handlers are fully type-safe, leveraging TypeScript and Zod.
+- **Error Handling**: Errors are caught and formatted for MCP compatibility.
+- **Streaming Output**: Streaming output from Ollama is buffered and returned as a single text response for compatibility with MCP SDK expectations.
 
 ## Component Relationships
-- `OllamaServer` manages tool registration and request handling.
-- Tool handlers translate MCP requests to Ollama CLI/API calls.
-- Uses `axios` for HTTP requests to Ollama API.
-- Uses Node.js `child_process` for CLI commands.
+
+- `McpServer` manages tool registration and transport setup.
+- Each tool handler translates MCP requests to Ollama API calls using `ollama-js`.
+- Zod schemas define and validate the structure of tool arguments.
 
 ## Critical Implementation Paths
-- MCP request → tool handler → Ollama CLI/API → result mapped to MCP response.
+
+- MCP request → tool handler (via registerTool) → Ollama API (via ollama-js) → result mapped to MCP response.
 - Chat completion tool adapts OpenAI-style messages to Ollama prompt format.
-- Server startup initializes both stdio and HTTP (SSE) endpoints.
+- Server startup initializes stdio transport; HTTP/SSE is a future enhancement.

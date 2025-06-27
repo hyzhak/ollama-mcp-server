@@ -1,34 +1,37 @@
 # Active Context
 
 ## Current Work Focus
-- Establishing and documenting the Memory Bank for the project.
-- Ensuring all core MCP tools for Ollama are implemented and exposed.
+- Modernizing the MCP Ollama server to use the latest @modelcontextprotocol/sdk and ollama-js.
+- Ensuring all core Ollama operations are registered as MCP tools using registerTool and Zod validation.
 - Maintaining compatibility with MCP conventions and Ollama updates.
 
 ## Recent Changes
-- Initial implementation of Ollama MCP server in TypeScript.
-- All core Ollama operations mapped to MCP tools.
-- Added support for stdio and SSE transports.
-- Created project documentation and setup instructions.
+- Migrated from legacy MCP server API to the modern McpServer/registerTool pattern.
+- Replaced class-based and CLI/axios architecture with functional handlers and ollama-js.
+- All core Ollama operations mapped to MCP tools with type-safe handlers.
+- Only stdio transport is currently implemented; HTTP/SSE is planned for future releases.
+- Updated documentation and memory bank to reflect new architecture.
 
 ## Next Steps
 - Expand test coverage for all MCP tools.
 - Monitor for changes in Ollama or MCP SDK APIs and update handlers as needed.
+- Add HTTP/SSE transport for remote/multi-client access.
 - Improve error reporting and diagnostics.
 - Document advanced usage and troubleshooting.
 
 ## Active Decisions and Considerations
-- Using class-based architecture for extensibility.
+- Using functional registerTool pattern for extensibility and clarity.
 - Prioritizing full API coverage and OpenAI compatibility.
 - Keeping configuration simple but flexible (env vars for endpoint, timeout, temperature).
-- Focusing on robust error handling and streaming support.
+- Focusing on robust error handling and compatibility with MCP SDK.
 
 ## Important Patterns and Preferences
-- Tool handler pattern for mapping MCP tools to Ollama operations.
-- Centralized error formatting and propagation.
+- Tool registration via registerTool with Zod schemas for validation.
+- Functional handler pattern for mapping MCP tools to Ollama operations.
 - Preference for explicit, well-documented interfaces.
 
 ## Learnings and Project Insights
 - MCP tool abstraction enables rapid integration of new Ollama features.
 - Streaming and stdio support are critical for flexible deployment.
 - Clear documentation and memory bank are essential for maintainability.
+- Modern MCP SDK and ollama-js simplify integration and improve type safety.

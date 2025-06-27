@@ -1,6 +1,6 @@
 {
   "name": "ollama-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "An ollama MCP server designed to allow Cline or other MCP supporting tools to access ollama",
   "private": true,
   "type": "module",
@@ -17,8 +17,8 @@
     "inspector": "npx @modelcontextprotocol/inspector build/index.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "0.6.0",
-    "axios": "^1.7.9"
+    "@modelcontextprotocol/sdk": "1.13.0",
+    "ollama": "^0.5.16"
   },
   "devDependencies": {
     "@types/node": "^20.11.24",
