@@ -18,7 +18,7 @@
   - Copy and remove models
 
 - 🤖 **Model Execution**
-  - Run models with customizable prompts
+  - Run models with customizable prompts (response is returned only after completion; streaming is not supported in stdio mode)
   - Vision/multimodal support: pass images to compatible models
   - Chat completion API with system/user/assistant roles
   - Configurable parameters (temperature, timeout)

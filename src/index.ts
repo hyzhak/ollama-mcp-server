@@ -164,12 +164,12 @@ function encodeImage(imagePath: string): string {
   }
 }
 
-// Tool: Run model (streamed)
+ // Tool: Run model (non-streaming)
 server.registerTool(
   "run",
   {
     title: "Run model",
-    description: "Run a model with a prompt (streamed). Optionally accepts an image file path for vision/multimodal models and a temperature parameter.",
+    description: "Run a model with a prompt. Optionally accepts an image file path for vision/multimodal models and a temperature parameter.",
     inputSchema: { 
       name: z.string(), 
       prompt: z.string(),
@@ -179,22 +179,14 @@ server.registerTool(
   },
   async ({ name, prompt, images, temperature }) => {
     try {
-      const ollamaStream = await ollama.generate({
+      const result = await ollama.generate({
         model: name,
         prompt,
-        stream: true,
         options: temperature !== undefined ? { temperature } : {},
         ...(images ? { images } : {}),
       });
 
-      let text = "";
-      for await (const chunk of ollamaStream) {
-        if (chunk.response) {
-          text += chunk.response;
-        }
-      }
-
-      return { content: [{ type: "text", text }] };
+      return { content: [{ type: "text", text: result.response ?? "" }] };
     } catch (error) {
       return { content: [{ type: "text", text: `Error: ${formatError(error)}` }], isError: true };
     }

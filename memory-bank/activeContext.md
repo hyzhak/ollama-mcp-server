@@ -13,6 +13,7 @@
 - All core Ollama operations mapped to MCP tools with type-safe handlers.
 - Only stdio transport is currently implemented; HTTP/SSE is planned for future releases.
 - Updated documentation and memory bank to reflect new architecture.
+- Simplified "run" tool: removed streaming logic, now always returns full response after completion (no partial/streamed output in stdio mode).
 
 ## Recent Changes
 
@@ -33,6 +34,7 @@
 - Prioritizing full API coverage and OpenAI compatibility.
 - Keeping configuration simple but flexible (env vars for endpoint, timeout, temperature).
 - "run" tool now supports an optional temperature parameter directly in its arguments for deterministic or creative outputs.
+- "run" tool does not support streaming in stdio MCP mode; response is accumulated and returned only after completion.
 - Focusing on robust error handling and compatibility with MCP SDK.
 
 ## Important Patterns and Preferences
@@ -44,6 +46,6 @@
 ## Learnings and Project Insights
 
 - MCP tool abstraction enables rapid integration of new Ollama features.
-- Streaming and stdio support are critical for flexible deployment.
+- Streaming is not supported in stdio MCP transport; future HTTP/SSE support may enable true streaming.
 - Clear documentation and memory bank are essential for maintainability.
 - Modern MCP SDK and ollama-js simplify integration and improve type safety.

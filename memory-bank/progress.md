@@ -7,13 +7,15 @@
 - Stdio transport is fully functional for CLI/stdio integration.
 - OpenAI-compatible chat completion is supported.
 - Configurable endpoint, timeout, and temperature via environment variables.
-- Robust error handling and streaming output (buffered for MCP compatibility).
+- Robust error handling.
+- "run" tool returns the full response only after completion (no streaming in stdio mode).
 - Modern MCP SDK and ollama-js integration with type-safe handlers.
 
 ## What's Left to Build
 
 - Comprehensive automated tests for all MCP tools.
 - HTTP/SSE transport for remote/multi-client access.
+- Streaming support for "run" tool and other tools (pending HTTP/SSE transport).
 - Advanced diagnostics and logging.
 - Documentation for advanced usage and troubleshooting.
 - Continuous integration setup for automated builds and tests.
@@ -27,6 +29,7 @@
 
 - No automated test coverage yet.
 - Only stdio transport is implemented; HTTP/SSE is planned.
+- Streaming is not available in stdio mode; responses are returned only after completion.
 - Error messages could be more detailed for some edge cases.
 - Future Ollama or MCP SDK changes may require handler updates.
 

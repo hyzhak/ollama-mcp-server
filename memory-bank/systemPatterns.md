@@ -13,7 +13,7 @@
 - **registerTool Pattern**: All MCP tools are registered with explicit input schemas and async handler functions.
 - **Type Safety**: Handlers are fully type-safe, leveraging TypeScript and Zod.
 - **Error Handling**: Errors are caught and formatted for MCP compatibility.
-- **Streaming Output**: Streaming output from Ollama is buffered and returned as a single text response for compatibility with MCP SDK expectations.
+- **Streaming Output**: Streaming is not supported in stdio MCP transport; the "run" tool returns the full response only after completion. Future HTTP/SSE transport may enable true streaming support.
 
 ## Component Relationships
 
