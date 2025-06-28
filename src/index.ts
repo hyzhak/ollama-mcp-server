@@ -146,21 +146,44 @@ server.registerTool(
   }
 );
 
+function encodeImage(imagePath: string): string {
+  // Read the image file and encode it as base64
+  const fs = require("fs");
+  try {
+    const imageBuffer = fs.readFileSync(imagePath);
+    return imageBuffer.toString("base64");
+    // const uint8Array = new Uint8Array(imageBuffer);
+    // let byteString = '';
+    // const len = uint8Array.byteLength;
+    // for (let i = 0; i < len; i++) {
+    //   byteString += String.fromCharCode(uint8Array[i]);
+    // }
+    // return btoa(byteString);
+  } catch (error) {
+    throw new Error(`Failed to read image at ${imagePath}: ${formatError(error)}`);
+  }
+}
+
 // Tool: Run model (streamed)
 server.registerTool(
   "run",
   {
     title: "Run model",
-    description: "Run a model with a prompt (streamed)",
-    inputSchema: { name: z.string(), prompt: z.string(), timeout: z.number().optional() },
+    description: "Run a model with a prompt (streamed). Optionally accepts an image file path for vision/multimodal models.",
+    inputSchema: { 
+      name: z.string(), 
+      prompt: z.string(),
+      images: z.array(z.string()).optional() // Array of image paths
+    },
   },
-  async ({ name, prompt, timeout }) => {
+  async ({ name, prompt, images }) => {
     try {
       const ollamaStream = await ollama.generate({
         model: name,
         prompt,
         stream: true,
         options: {},
+        ...(images ? { images } : {}),
       });
 
       let text = "";
@@ -190,10 +213,9 @@ server.registerTool(
         content: z.string(),
       })),
       temperature: z.number().min(0).max(2).optional(),
-      timeout: z.number().min(1000).optional(),
     },
   },
-  async ({ model, messages, temperature, timeout }) => {
+  async ({ model, messages, temperature }) => {
     try {
       const response = await ollama.chat({
         model,

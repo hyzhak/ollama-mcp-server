@@ -19,6 +19,7 @@
 
 - 🤖 **Model Execution**
   - Run models with customizable prompts
+  - Vision/multimodal support: pass images to compatible models
   - Chat completion API with system/user/assistant roles
   - Configurable parameters (temperature, timeout)
   - Raw mode support for direct responses
@@ -88,6 +89,21 @@ await mcp.use_mcp_tool({
   arguments: {
     name: "llama2",
     prompt: "Explain quantum computing in simple terms"
+  }
+});
+```
+
+### Run a Vision/Multimodal Model
+
+```typescript
+// Run a model with an image (for vision/multimodal models)
+await mcp.use_mcp_tool({
+  server_name: "ollama",
+  tool_name: "run",
+  arguments: {
+    name: "gemma3:4b",
+    prompt: "Describe the contents of this image.",
+    imagePath: "./path/to/image.jpg"
   }
 });
 ```
