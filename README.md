@@ -128,7 +128,28 @@ await mcp.use_mcp_tool({
     temperature: 0.7
   }
 });
+
+// Chat with images (for vision/multimodal models)
+await mcp.use_mcp_tool({
+  server_name: "ollama",
+  tool_name: "chat_completion",
+  arguments: {
+    model: "gemma3:4b",
+    messages: [
+      {
+        role: "system",
+        content: "You are a helpful assistant."
+      },
+      {
+        role: "user",
+        content: "Describe the contents of this image.",
+        images: ["./path/to/image.jpg"]
+      }
+    ]
+  }
+});
 ```
+> Note: The `images` field is optional and only supported by vision/multimodal models.
 
 ### Create Custom Model
 ```typescript

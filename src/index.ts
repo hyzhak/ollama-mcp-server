@@ -206,12 +206,13 @@ server.registerTool(
   "chat_completion",
   {
     title: "Chat completion",
-    description: "OpenAI-compatible chat completion API",
+    description: "OpenAI-compatible chat completion API. Supports optional images per message for vision/multimodal models.",
     inputSchema: {
       model: z.string(),
       messages: z.array(z.object({
         role: z.enum(["system", "user", "assistant"]),
         content: z.string(),
+        images: z.array(z.string()).optional(), // Array of image paths
       })),
       temperature: z.number().min(0).max(2).optional(),
     },

@@ -14,9 +14,14 @@
 - Only stdio transport is currently implemented; HTTP/SSE is planned for future releases.
 - Updated documentation and memory bank to reflect new architecture.
 
+## Recent Changes
+
+- Added support for images in chat messages (`chat_completion` tool) for vision/multimodal models.
+- Updated README with usage examples for chat with images.
+
 ## Next Steps
 
-- Expand test coverage for all MCP tools.
+- Expand test coverage for all MCP tools, including chat with images.
 - Monitor for changes in Ollama or MCP SDK APIs and update handlers as needed.
 - Add HTTP/SSE transport for remote/multi-client access.
 - Improve error reporting and diagnostics.
