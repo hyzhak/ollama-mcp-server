@@ -19,8 +19,9 @@ Provide a bridge between Ollama's local LLM API and the Model Context Protocol (
 
 - Integrate all essential Ollama API and CLI features into MCP.
 - Support both CLI and HTTP transports (stdio and SSE).
-- Allow model creation, listing, pulling, pushing, copying, removing, and running.
-- Enable advanced configuration (timeouts, temperature, endpoint).
+- Allow model creation, listing, pulling, pushing, copying, removing, and running (with prompt, images, and temperature parameters).
+- Enable advanced configuration (timeouts, temperature, endpoint).  
+- The "run" tool supports an optional temperature parameter for deterministic or creative outputs.
 - Maintain compatibility with MCP server conventions.
 
 ## Out of Scope

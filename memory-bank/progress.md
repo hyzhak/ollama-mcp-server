@@ -3,6 +3,7 @@
 ## What Works
 
 - MCP server exposes all core Ollama operations as tools (list, show, create, pull, push, cp, rm, run, chat_completion).
+- The "run" tool now supports an optional temperature parameter for deterministic or creative outputs.
 - Stdio transport is fully functional for CLI/stdio integration.
 - OpenAI-compatible chat completion is supported.
 - Configurable endpoint, timeout, and temperature via environment variables.

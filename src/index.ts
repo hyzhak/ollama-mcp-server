@@ -169,20 +169,21 @@ server.registerTool(
   "run",
   {
     title: "Run model",
-    description: "Run a model with a prompt (streamed). Optionally accepts an image file path for vision/multimodal models.",
+    description: "Run a model with a prompt (streamed). Optionally accepts an image file path for vision/multimodal models and a temperature parameter.",
     inputSchema: { 
       name: z.string(), 
       prompt: z.string(),
-      images: z.array(z.string()).optional() // Array of image paths
+      images: z.array(z.string()).optional(), // Array of image paths
+      temperature: z.number().min(0).max(2).optional(),
     },
   },
-  async ({ name, prompt, images }) => {
+  async ({ name, prompt, images, temperature }) => {
     try {
       const ollamaStream = await ollama.generate({
         model: name,
         prompt,
         stream: true,
-        options: {},
+        options: temperature !== undefined ? { temperature } : {},
         ...(images ? { images } : {}),
       });
 
