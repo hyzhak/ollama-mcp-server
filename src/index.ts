@@ -4,6 +4,7 @@
 // Future: Add HTTP/SSE transports for remote multi-client access (see memory bank).
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+import { ContentBlock } from "@modelcontextprotocol/sdk/types.js";
 import { Ollama } from "ollama";
 import { z } from "zod";
 
@@ -146,24 +147,6 @@ server.registerTool(
   }
 );
 
-function encodeImage(imagePath: string): string {
-  // Read the image file and encode it as base64
-  const fs = require("fs");
-  try {
-    const imageBuffer = fs.readFileSync(imagePath);
-    return imageBuffer.toString("base64");
-    // const uint8Array = new Uint8Array(imageBuffer);
-    // let byteString = '';
-    // const len = uint8Array.byteLength;
-    // for (let i = 0; i < len; i++) {
-    //   byteString += String.fromCharCode(uint8Array[i]);
-    // }
-    // return btoa(byteString);
-  } catch (error) {
-    throw new Error(`Failed to read image at ${imagePath}: ${formatError(error)}`);
-  }
-}
-
  // Tool: Run model (non-streaming)
 server.registerTool(
   "run",
@@ -175,18 +158,25 @@ server.registerTool(
       prompt: z.string(),
       images: z.array(z.string()).optional(), // Array of image paths
       temperature: z.number().min(0).max(2).optional(),
+      think: z.boolean().optional(),
     },
   },
-  async ({ name, prompt, images, temperature }) => {
+  async ({ name, prompt, images, temperature, think }) => {
     try {
       const result = await ollama.generate({
         model: name,
         prompt,
         options: temperature !== undefined ? { temperature } : {},
         ...(images ? { images } : {}),
+        ...(think !== undefined ? { think } : {}),
       });
 
-      return { content: [{ type: "text", text: result.response ?? "" }] };
+      const content: Array<ContentBlock> = [];
+      if (result?.thinking) {
+        content.push({ type: "text", text: `<think>${result.thinking}</think>` });
+      }
+      content.push({ type: "text", text: result.response ?? "" });
+      return { content };
     } catch (error) {
       return { content: [{ type: "text", text: `Error: ${formatError(error)}` }], isError: true };
     }
@@ -207,14 +197,16 @@ server.registerTool(
         images: z.array(z.string()).optional(), // Array of image paths
       })),
       temperature: z.number().min(0).max(2).optional(),
+      think: z.boolean().optional(),
     },
   },
-  async ({ model, messages, temperature }) => {
+  async ({ model, messages, temperature, think }) => {
     try {
       const response = await ollama.chat({
         model,
         messages,
         options: { temperature },
+        ...(think !== undefined ? { think } : {}),
       });
       return {
         content: [

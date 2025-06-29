@@ -22,6 +22,7 @@
   - Vision/multimodal support: pass images to compatible models
   - Chat completion API with system/user/assistant roles
   - Configurable parameters (temperature, timeout)
+  - **NEW:** `think` parameter for advanced reasoning and transparency (see below)
   - Raw mode support for direct responses
 
 - 🛠 **Server Control**
@@ -162,6 +163,49 @@ await mcp.use_mcp_tool({
   }
 });
 ```
+
+## 🧠 Advanced Reasoning with the `think` Parameter
+
+Both the `run` and `chat_completion` tools now support an optional `think` parameter:
+
+- **`think: true`**: Requests the model to provide step-by-step reasoning or "thought process" in addition to the final answer (if supported by the model).
+- **`think: false`** (default): Only the final answer is returned.
+
+#### Example (`run` tool):
+
+```typescript
+await mcp.use_mcp_tool({
+  server_name: "ollama",
+  tool_name: "run",
+  arguments: {
+    name: "deepseek-r1:32b",
+    prompt: "how many r's are in strawberry?",
+    think: true
+  }
+});
+```
+
+- If the model supports it, the response will include a `<think>...</think>` block with detailed reasoning before the final answer.
+
+#### Example (`chat_completion` tool):
+
+```typescript
+await mcp.use_mcp_tool({
+  server_name: "ollama",
+  tool_name: "chat_completion",
+  arguments: {
+    model: "deepseek-r1:32b",
+    messages: [
+      { role: "user", content: "how many r's are in strawberry?" }
+    ],
+    think: true
+  }
+});
+```
+
+- The model's reasoning (if provided) will be included in the message content.
+
+> **Note:** Not all models support the `think` parameter. Advanced models (e.g., "deepseek-r1:32b", "magistral") may provide more detailed and accurate reasoning when `think` is enabled.
 
 ## 🔧 Advanced Configuration
 
