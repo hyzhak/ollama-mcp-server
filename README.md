@@ -1,5 +1,12 @@
 # Ollama MCP Server
 
+> **This is a rebooted and actively maintained fork.**  
+> Original project: [NightTrek/Ollama-mcp](https://github.com/NightTrek/Ollama-mcp)  
+>  
+> This repository ([hyzhak/ollama-mcp-server](https://github.com/hyzhak/ollama-mcp-server)) is a fresh upstream with improved maintenance, metadata, and publishing automation.  
+>  
+> See [NightTrek/Ollama-mcp](https://github.com/NightTrek/Ollama-mcp) for project history and prior releases.
+
 🚀 A powerful bridge between Ollama and the Model Context Protocol (MCP), enabling seamless integration of Ollama's local LLM capabilities into your MCP-powered applications.
 
 ## 🌟 Features

@@ -1,8 +1,10 @@
 {
-  "name": "ollama-mcp",
-  "version": "0.2.0",
-  "description": "An ollama MCP server designed to allow Cline or other MCP supporting tools to access ollama",
-  "private": true,
+  "name": "ollama-mcp-server",
+  "version": "1.0.0",
+  "description": "Modern MCP server for Ollama – rebooted and actively maintained.",
+  "license": "MIT",
+  "repository": "github:hyzhak/ollama-mcp-server",
+  "keywords": ["ollama", "mcp", "ai", "chatbot"],
   "type": "module",
   "bin": {
     "ollama-mcp": "./build/index.js"
@@ -14,7 +16,8 @@
     "build": "tsc && node -e \"import('node:fs').then(fs => fs.chmodSync('build/index.js', '755'))\"",
     "prepare": "npm run build",
     "watch": "tsc --watch",
-    "inspector": "npx @modelcontextprotocol/inspector build/index.js"
+    "inspector": "npx @modelcontextprotocol/inspector build/index.js",
+    "test": "echo \"No tests yet\""
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.13.0",
