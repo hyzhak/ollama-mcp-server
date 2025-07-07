@@ -6,7 +6,9 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { ContentBlock } from "@modelcontextprotocol/sdk/types.js";
 import { Ollama } from "ollama";
+import { readFileSync } from "node:fs";
 import { z } from "zod";
+
 
 // Default Ollama API endpoint
 const OLLAMA_HOST = process.env.OLLAMA_HOST || "http://127.0.0.1:11434";
@@ -16,9 +18,11 @@ const ollama = new Ollama({ host: OLLAMA_HOST });
 const formatError = (error: unknown): string =>
   error instanceof Error ? error.message : String(error);
 
+const pkg = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8"));
+
 const server = new McpServer({
-  name: "ollama-mcp",
-  version: "0.2.0",
+  name: "ollama-mcp-server",
+  version: pkg.version,
 });
 
 // Tool: List models

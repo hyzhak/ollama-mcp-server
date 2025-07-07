@@ -13,7 +13,7 @@
 - **Install**: `npm install` to install dependencies.
 - **Build**: `npm run build` to compile TypeScript to `build/`.
 - **Watch**: `npm run watch` for live TypeScript compilation.
-- **CLI**: Entry point is `build/index.js`, exposed as `ollama-mcp`.
+- **CLI**: Entry point is `build/index.js`, exposed as `ollama-mcp-server`.
 - **Inspector**: `npx @modelcontextprotocol/inspector build/index.js` for MCP tool inspection.
 
 ## Technical Constraints

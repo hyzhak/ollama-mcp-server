@@ -37,23 +37,13 @@
   - View detailed model information
   - Error handling and timeout management
 
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
+
 - [Ollama](https://ollama.ai) installed on your system
-- Node.js and npm/pnpm
+- Node.js (with [npx](https://docs.npmjs.com/cli/v10/commands/npx), included with npm)
 
-### Installation
-
-1. Install dependencies:
-```bash
-pnpm install
-```
-
-2. Build the server:
-```bash
-pnpm run build
-```
 
 ### Configuration
 
@@ -67,14 +57,34 @@ Windows: `%APPDATA%/Claude/claude_desktop_config.json`
 {
   "mcpServers": {
     "ollama": {
-      "command": "node",
-      "args": ["/path/to/ollama-server/build/index.js"],
+      "command": "npx",
+      "args": ["ollama-mcp-server"],
       "env": {
         "OLLAMA_HOST": "http://127.0.0.1:11434"  // Optional: customize Ollama API endpoint
       }
     }
   }
 }
+```
+
+---
+
+## 🛠 Developer Setup
+
+### Prerequisites
+- [Ollama](https://ollama.ai) installed on your system
+- Node.js and npm
+
+### Installation
+
+1. Install dependencies:
+```bash
+npm install
+```
+
+2. Build the server:
+```bash
+npm run build
 ```
 
 ## 🛠 Usage Examples
