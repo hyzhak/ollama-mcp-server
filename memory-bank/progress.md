@@ -49,3 +49,4 @@
 - Integrate semantic-release to automate versioning and npm publishing based on commit messages.
 - Enable CodeQL or Snyk for automated vulnerability scanning of dependencies and code.
 - Activate GitHub Discussions to provide a space for community Q&A and support.
+- Follow instructions in https://github.com/cline/mcp-marketplace to register this package.
