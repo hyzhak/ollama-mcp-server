@@ -28,6 +28,13 @@
 - Improve error reporting and diagnostics.
 - Document advanced usage and troubleshooting.
 
+### Release Flow
+
+- Bump version and create a tag:  
+  `npm version minor -m "release %s"`
+- Push changes and tags:  
+  `git push origin main --follow-tags`
+
 ## Active Decisions and Considerations
 
 - Using functional registerTool pattern for extensibility and clarity.
@@ -49,3 +56,10 @@
 - Streaming is not supported in stdio MCP transport; future HTTP/SSE support may enable true streaming.
 - Clear documentation and memory bank are essential for maintainability.
 - Modern MCP SDK and ollama-js simplify integration and improve type safety.
+
+## Recommended Follow-ups
+
+- All contributions must follow the Conventional Commits standard (see project cline rules).
+- Integrate semantic-release to automate versioning and npm publishing based on commit messages.
+- Enable CodeQL or Snyk for automated vulnerability scanning of dependencies and code.
+- Activate GitHub Discussions to provide a space for community Q&A and support.

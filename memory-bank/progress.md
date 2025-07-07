@@ -19,6 +19,9 @@
 - Advanced diagnostics and logging.
 - Documentation for advanced usage and troubleshooting.
 - Continuous integration setup for automated builds and tests.
+- Release flow:  
+  - `npm version minor -m "release %s"`  
+  - `git push origin main --follow-tags`
 
 ## Current Status
 
@@ -39,3 +42,10 @@
 - Prioritized full Ollama API coverage and OpenAI compatibility.
 - Chose to implement stdio transport first; HTTP/SSE is a future goal.
 - Emphasized maintainability through clear documentation and Memory Bank structure.
+
+## Recommended Follow-ups
+
+- All contributions must follow the Conventional Commits standard (see project cline rules).
+- Integrate semantic-release to automate versioning and npm publishing based on commit messages.
+- Enable CodeQL or Snyk for automated vulnerability scanning of dependencies and code.
+- Activate GitHub Discussions to provide a space for community Q&A and support.
