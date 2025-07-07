@@ -1,13 +1,13 @@
 {
   "name": "ollama-mcp-server",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Modern MCP server for Ollama – rebooted and actively maintained.",
   "license": "MIT",
   "repository": "github:hyzhak/ollama-mcp-server",
   "keywords": ["ollama", "mcp", "ai", "chatbot"],
   "type": "module",
   "bin": {
-    "ollama-mcp": "./build/index.js"
+    "ollama-mcp-server": "./build/index.js"
   },
   "files": [
     "build"
