@@ -30,8 +30,6 @@
 
 ### Release Flow
 
-- Bump version and create a tag:  
-  `npm version minor -m "release %s"`
 - Push changes and tags:  
   `git push origin main --follow-tags`
 
